@@ -17,7 +17,7 @@
 		/// <param name="companyId">The company id</param>
 		/// <param name="uniqueClaimReference">The unique claim reference</param>
 		/// <returns>A <see cref="Claim"/> object</returns>
-		Task<ClaimDto?> GetClaim(int companyId, string uniqueClaimReference);
+		Task<ClaimDto> GetClaim(int companyId, string uniqueClaimReference);
 
 		/// <summary>
 		/// Updates a claim

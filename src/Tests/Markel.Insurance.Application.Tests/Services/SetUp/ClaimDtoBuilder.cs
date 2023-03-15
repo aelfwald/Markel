@@ -3,7 +3,7 @@
 	internal class ClaimDtoBuilder
 	{
 
-		internal ClaimDto Build()
+		internal static ClaimDto Build()
 		{
 			return new ClaimDto()
 			{

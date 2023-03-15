@@ -57,7 +57,7 @@ namespace Markel.Insurance.Api.Controllers
 		{
 			_logger.LogTrace("{MethodName} called", nameof(GetClaim));
 
-			ClaimDto? claimDto = await _claimsService.GetClaim(companyId, uniqueClaimReference);
+			ClaimDto claimDto = await _claimsService.GetClaim(companyId, uniqueClaimReference);
 
 			var getClaimJson = new GetClaimJson()
 			{

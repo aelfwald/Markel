@@ -41,7 +41,7 @@ namespace Markel.Insurance.Application
 			_dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
 		}
 
-		public async Task<ClaimDto?> GetClaim(int companyId, string uniqueClaimReference)
+		public async Task<ClaimDto> GetClaim(int companyId, string uniqueClaimReference)
 		{
 
 			if (companyId == default)

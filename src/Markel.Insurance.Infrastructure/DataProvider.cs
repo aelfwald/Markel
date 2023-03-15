@@ -21,7 +21,7 @@ namespace Markel.Insurance.Infrastructure
 						assuredName: "George Costanza",
 						incurredLoss: 1500.00M,
 						closed: false,
-						claimType: new ClaimType(id: 1, name : "")),
+						claimType: new ClaimType(id: 2, name : "Fire")),
 					new Claim(
 						uniqueClaimReference: "UCR000002",
 						companyId: 1,
@@ -30,7 +30,7 @@ namespace Markel.Insurance.Infrastructure
 						assuredName: "Newman",
 						incurredLoss: 1000.00M,
 						closed: true,
-						claimType: new ClaimType(id: 1, name : ""))
+						claimType: new ClaimType(id: 1, name : "Theft"))
 				};
 
 			return _claims;
