@@ -59,11 +59,6 @@ namespace Markel.Insurance.Api.Controllers
 
 			ClaimDto? claimDto = await _claimsService.GetClaim(companyId, uniqueClaimReference);
 
-			if (claimDto == null)
-			{
-				return this.NotFound();
-			}
-
 			var getClaimJson = new GetClaimJson()
 			{
 				CompanyId = claimDto.CompanyId,
@@ -107,28 +102,9 @@ namespace Markel.Insurance.Api.Controllers
 				UniqueClaimReference = uniqueClaimReference
 			};
 
-			var updateClaimDispatcher = new UpdateClaimDispatcher();
-			ActionResult? result = null;
+			await _claimsService.Update(claimDto);
 
-			updateClaimDispatcher.ClaimNotFound += (sender, args) =>
-			{
-				result = NotFound("Claim not found");
-			};
-
-			updateClaimDispatcher.ValidationFailed += (sender, failureReason) =>
-			{
-				throw new ValidationException(failureReason);
-				//result = BadRequest(failureReason);
-			};
-
-			updateClaimDispatcher.Updated += (sender, args) =>
-			{
-				result = Ok();
-			};
-
-			await _claimsService.Update(claimDto, updateClaimDispatcher);
-
-			return result!;
+			return Ok()!;
 
 		}
 

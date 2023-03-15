@@ -23,8 +23,7 @@
 		/// Updates a claim
 		/// </summary>
 		/// <param name="claimDto">The claim update details</param>
-		/// <param name="updateClaimDispatcher">update dispatcher</param>
-		Task Update(ClaimDto claimDto, UpdateClaimDispatcher updateClaimDispatcher);
+		Task Update(ClaimDto claimDto);
 
 	}
 }

@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Markel.Insurance.Domain\Markel.Insurance.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

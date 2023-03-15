@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using System.ComponentModel.DataAnnotations;
+﻿using Markel.Insurance.Application;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Markel.Insurance.ApiAppConfig
 {
@@ -22,7 +22,6 @@ namespace Markel.Insurance.ApiAppConfig
 		/// Handler for the CustomizeProblemDetails property of the ProblemDetailsOptions object.
 		/// Handles the actual transformation
 		/// </summary>
-		/// <param name="context"></param>
 		private static void Configure(ProblemDetailsContext context)
 		{
 			IExceptionHandlerFeature? exceptionHandlerPathFeature = context.HttpContext.Features.Get<IExceptionHandlerFeature>();
@@ -32,46 +31,33 @@ namespace Markel.Insurance.ApiAppConfig
 				case ValidationException ex:
 					HandleValidationException(context, ex);
 					break;
-				//case SignAndSendException ex:
-				//	HandleSignAndSendException(context, ex);
-				//	break;
+				case NotFoundException ex:
+					HandleNotFoundException(context, ex);
+					break;
 				default:
 					HandleDefaultException(context);
 					break;
 			}
 		}
 
-		/// <summary>
-		/// Handle a <see cref="ProviderAuthorisationException"/>
-		/// </summary>
 		private static void HandleValidationException(ProblemDetailsContext context, ValidationException ex)
 		{
 			context.HttpContext.Response.StatusCode = 400;
-			context.ProblemDetails.Type = "https://httpstatuses.io/401";
-			context.ProblemDetails.Title = "Bad request";
+			context.ProblemDetails.Type = "https://httpstatuses.io/400";
+			context.ProblemDetails.Title = "Bad Request";
 			context.ProblemDetails.Status = 400;
 			context.ProblemDetails.Detail = ex.Message;
 		}
 
-		///// <summary>
-		///// Handle a <see cref="SignAndSendException"/>
-		///// </summary>
-		//private static void HandleSignAndSendException(ProblemDetailsContext context, SignAndSendException ex)
-		//{
-		//	context.ProblemDetails.Type = "https://httpstatuses.io/500";
-		//	context.ProblemDetails.Title = "Internal Server Error";
-		//	context.ProblemDetails.Status = 500;
-		//	context.ProblemDetails.Detail = ex.PublicMessage;
+		private static void HandleNotFoundException(ProblemDetailsContext context, NotFoundException ex)
+		{
+			context.HttpContext.Response.StatusCode = 404;
+			context.ProblemDetails.Type = "https://httpstatuses.io/404";
+			context.ProblemDetails.Title = "Not Found";
+			context.ProblemDetails.Status = 404;
+			context.ProblemDetails.Detail = ex.Message;
+		}
 
-		//	foreach (KeyValuePair<string, object?> extension in ex.Extensions)
-		//	{
-		//		context.ProblemDetails.Extensions.Add(extension);
-		//	}
-		//}
-
-		/// <summary>
-		/// Handle any other unhandle exceptions
-		/// </summary>
 		private static void HandleDefaultException(ProblemDetailsContext context)
 		{
 			context.ProblemDetails.Type = "https://httpstatuses.io/500";

@@ -12,6 +12,7 @@ namespace Markel.Insurance.Application
 		private readonly IGetClaimQuery _getClaimQuery;
 		private readonly IGetClaimTypesQuery _getClaimTypesQuery;
 		private readonly IUpdateClaimCommand _updateClaimCommand;
+		private readonly IGetCompaniesQuery _getCompaniesQuery;
 		private readonly IDateTimeProvider _dateTimeProvider;
 
 		/// <summary>
@@ -21,6 +22,7 @@ namespace Markel.Insurance.Application
 		/// <param name="getClaimQuery">A query that returns a claim</param>
 		/// <param name="getClaimTypesQuery">A query that returns all available claim types</param>
 		/// <param name="updateClaimCommand">A command that updates a claim</param>
+		/// <param name="getCompaniesQuery">The get companies query</param>
 		/// <param name="dateTimeProvider">The date time provider</param>
 		/// <exception cref="ArgumentNullException"></exception>
 		public ClaimsService(
@@ -28,12 +30,14 @@ namespace Markel.Insurance.Application
 			IGetClaimQuery getClaimQuery,  
 			IGetClaimTypesQuery getClaimTypesQuery,
 			IUpdateClaimCommand updateClaimCommand,
+			IGetCompaniesQuery getCompaniesQuery,
 			IDateTimeProvider dateTimeProvider)
 		{
 			_getCompanyClaimsQuery = getCompanyClaimsQuery ?? throw new ArgumentNullException(nameof(getCompanyClaimsQuery));
 			_getClaimQuery = getClaimQuery ?? throw new ArgumentNullException(nameof(getCompanyClaimsQuery));
 			_getClaimTypesQuery = getClaimTypesQuery ?? throw new ArgumentNullException(nameof(getClaimTypesQuery));
 			_updateClaimCommand = updateClaimCommand ?? throw new ArgumentNullException(nameof(updateClaimCommand));
+			_getCompaniesQuery = getCompaniesQuery ?? throw new ArgumentNullException(nameof(getCompaniesQuery));
 			_dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
 		}
 
@@ -54,7 +58,7 @@ namespace Markel.Insurance.Application
 
 			if(claim is null || claim.CompanyId != companyId)
 			{
-				return null;
+				throw new NotFoundException("Claim not found");
 			}
 
 			var claimDto = new ClaimDto()
@@ -81,26 +85,29 @@ namespace Markel.Insurance.Application
 				throw new ArgumentException("Argument not initialised.", nameof(companyId));
 			}
 
+			if(!(await _getCompaniesQuery.Run()).Any( c => c.Id == companyId))
+			{
+				throw new NotFoundException("Company not found.");
+			}
+
 			return await _getCompanyClaimsQuery.Run(companyId);
 		}
 
-		public async Task Update(ClaimDto claimDto, UpdateClaimDispatcher updateClaimDispatcher)
+		public async Task Update(ClaimDto claimDto)
 		{
 
 			Claim? claim = await _getClaimQuery.Run(claimDto.UniqueClaimReference!);
 
 			if(claim == null || claim.CompanyId != claimDto.CompanyId)
 			{
-				updateClaimDispatcher.OnClaimNotFound();
-				return;
+				throw new NotFoundException("Claim not found");
 			}
 
 			IEnumerable<ClaimType> claimTypes = await _getClaimTypesQuery.Run();
 
 			if (!ValidateClaimUpdate(claimDto, claimTypes, out string validationMessage))
 			{
-				updateClaimDispatcher.OnValidationFailed(validationMessage);
-				return;
+				throw new ValidationException(validationMessage);
 			}
 
 			claim.AssuredName = claimDto.AssuredName!;
@@ -111,7 +118,6 @@ namespace Markel.Insurance.Application
 			claim.ClaimType = claimTypes.First(c => c.Name.ToLower() == claimDto.ClaimType!.ToLower());
 
 			await _updateClaimCommand.Run(claim);
-			updateClaimDispatcher.OnUpdated();
 
 		}
 
