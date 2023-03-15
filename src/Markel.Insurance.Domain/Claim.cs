@@ -97,7 +97,7 @@
 		/// </summary>
 		public double DaysSinceClaim(IDateTimeProvider dateTimeProvider)
 		{ 
-			return Math.Max(0, (dateTimeProvider.GetDateTime() - this.ClaimDate).TotalDays);
+			return Math.Floor(Math.Max(0, (dateTimeProvider.GetDateTime() - this.ClaimDate).TotalDays));
 		}
 
 	}

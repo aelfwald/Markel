@@ -30,13 +30,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	// Host a swagger page at /swagger/index.html
-	app.UseSwagger();
-	app.UseSwaggerUI(options => options.SwaggerEndpoint("v1.0/swagger.json", "Market.Insurance v1.0"));
-
 	app.UseDeveloperExceptionPage();
 }
 
+// Host a swagger page at /swagger/index.html
+app.UseSwagger();
+app.UseSwaggerUI(options => options.SwaggerEndpoint("v1.0/swagger.json", "Markel.Insurance v1.0"));
 
 // Ensure unhandled exceptions are converted to RFC 7807 responses.
 app.UseExceptionHandler();
