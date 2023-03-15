@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Markel.Insurance.Application\Markel.Insurance.Application.csproj" />
+    <ProjectReference Include="..\Markel.Insurance.Domain\Markel.Insurance.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,1 @@
+Requires .NET 7.0
