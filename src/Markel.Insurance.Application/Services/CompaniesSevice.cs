@@ -8,14 +8,19 @@ namespace Markel.Insurance.Application
 	public class CompaniesSevice : ICompaniesService
 	{
 		private readonly IGetCompaniesQuery _getCompaniesQuery;
+		private readonly IDateTimeProvider _dateTimeProvider;
 
 		/// <summary>
 		/// Class constructor
 		/// </summary>
 		/// <param name="getCompaniesQuery">The get companies query</param>
-		public CompaniesSevice(IGetCompaniesQuery getCompaniesQuery)
+		/// <param name="dateTimeProvider">The date time provider</param>
+		public CompaniesSevice(
+			IGetCompaniesQuery getCompaniesQuery,
+			IDateTimeProvider dateTimeProvider)
 		{
 			_getCompaniesQuery = getCompaniesQuery ?? throw new ArgumentNullException(nameof(getCompaniesQuery));
+			_dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
 		}
 
 		public async Task<IEnumerable<CompanyDto>> GetAll()
@@ -32,7 +37,7 @@ namespace Markel.Insurance.Application
 					Address2 = i.Address2,
 					Address3 = i.Address3,
 					Country = i.Country,
-					HasActivePolicy = i.HasActivePolicy,
+					HasActivePolicy = i.HasActivePolicy(_dateTimeProvider),
 					Id = i.Id,
 					InsuranceEndDate = i.InsuranceEndDate,
 					Name = i.Name,

@@ -105,11 +105,8 @@ public class Company
 	/// <summary>
 	/// Has the company got an active policy?
 	/// </summary>
-	public bool HasActivePolicy 
+	public bool HasActivePolicy (IDateTimeProvider dateTimeProvider)
 	{ 
-		get 
-		{ 
-			return this.InsuranceEndDate < DateTime.Today; 
-		} 
+		return this.InsuranceEndDate >= dateTimeProvider.GetDateTime(); 
 	}
 }
