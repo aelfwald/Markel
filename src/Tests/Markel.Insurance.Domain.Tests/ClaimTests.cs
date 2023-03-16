@@ -5,7 +5,6 @@ namespace Markel.Insurance.Domain.Tests;
 
 public class ClaimTests
 {
-
 	public static IEnumerable<object[]> NumberOfDaysTestParams
 	{
 		get
@@ -37,6 +36,7 @@ public class ClaimTests
 		//Act
 		double result = claim.DaysSinceClaim(dateTimeProvider.Object);
 
+		//Assert
 		result.Should().Be(numberOfDays);
 
 	}

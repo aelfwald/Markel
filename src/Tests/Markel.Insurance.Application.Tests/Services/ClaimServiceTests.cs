@@ -1,7 +1,6 @@
-using Moq;
 using FluentAssertions;
 using Markel.Insurance.Domain;
-using System.ComponentModel.DataAnnotations;
+using Moq;
 
 namespace Markel.Insurance.Application.Tests;
 

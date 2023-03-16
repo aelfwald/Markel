@@ -44,11 +44,6 @@ namespace Markel.Insurance.Application
 		public async Task<ClaimDto> GetClaim(int companyId, string uniqueClaimReference)
 		{
 
-			if (companyId == default)
-			{
-				throw new ArgumentException("Argument not initialised.", nameof(companyId));
-			}
-
 			if (string.IsNullOrEmpty(uniqueClaimReference))
 			{
 				throw new ArgumentException("Argument not initialised.", nameof(uniqueClaimReference));
@@ -80,10 +75,6 @@ namespace Markel.Insurance.Application
 
 		public async Task<IEnumerable<string>> GetClaimsByCompany(int companyId)
 		{
-			if(companyId == default)
-			{
-				throw new ArgumentException("Argument not initialised.", nameof(companyId));
-			}
 
 			if(!(await _getCompaniesQuery.Run()).Any( c => c.Id == companyId))
 			{
@@ -110,12 +101,12 @@ namespace Markel.Insurance.Application
 				throw new ValidationException(validationMessage);
 			}
 
-			claim.AssuredName = claimDto.AssuredName!;
+			claim.AssuredName = claimDto.AssuredName!.Trim();
 			claim.ClaimDate = claimDto.ClaimDate;
 			claim.Closed = claimDto.Closed;
 			claim.IncurredLoss = claimDto.IncurredLoss;
 			claim.LossDate = claimDto.LossDate;
-			claim.ClaimType = claimTypes.First(c => c.Name.ToLower() == claimDto.ClaimType!.ToLower());
+			claim.ClaimType = claimTypes.First(c => c.Name.ToLower() == claimDto.ClaimType!.Trim().ToLower());
 
 			await _updateClaimCommand.Run(claim);
 
@@ -125,11 +116,16 @@ namespace Markel.Insurance.Application
 		{
 			validationMessage = "";
 			bool isValid = true;
-			if (!claimTypes.Any(c => c.Name.ToLower() == claimDto.ClaimType!.ToLower()))
+			if (!claimTypes.Any(c => c.Name.ToLower() == claimDto.ClaimType!.Trim().ToLower()))
 			{
-				validationMessage = "Invalid claim type.";
+				validationMessage = "Invalid claim type. Supported values are 'Theft', 'Fire' and 'Death'.";
 				isValid = false;
 			}
+
+			// Can implement further validation rules required here e.g
+			// Prevent updating of closed claims?
+			// Prevent future dated claims?
+			// etc
 
 			return isValid;
 		}

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 namespace Markel.Insurance.ApiAppConfig
 {
 	/// <summary>
-	/// Configures Projects details
+	/// Configures problem details
 	/// </summary>
 	public class ConfigureProblemDetailsOptions
 	{
@@ -12,16 +12,11 @@ namespace Markel.Insurance.ApiAppConfig
 		/// Configure the problem details middleware to transform any exceptions
 		/// into a properly formatted problem details response
 		/// </summary>
-		/// <param name="options"></param>
 		public static void ConfigureProblemDetails(ProblemDetailsOptions options)
 		{
 			options.CustomizeProblemDetails = Configure;
 		}
 
-		/// <summary>
-		/// Handler for the CustomizeProblemDetails property of the ProblemDetailsOptions object.
-		/// Handles the actual transformation
-		/// </summary>
 		private static void Configure(ProblemDetailsContext context)
 		{
 			IExceptionHandlerFeature? exceptionHandlerPathFeature = context.HttpContext.Features.Get<IExceptionHandlerFeature>();

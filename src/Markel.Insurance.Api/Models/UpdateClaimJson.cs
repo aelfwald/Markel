@@ -3,7 +3,7 @@
 namespace Markel.Insurance.Api
 {
 	/// <summary>
-	/// Class used for deserialising the body of a request to update a claim
+	/// Json class used in UpdateClaim request
 	/// </summary>
 	public class UpdateClaimJson
 	{
@@ -11,7 +11,7 @@ namespace Markel.Insurance.Api
 		/// The claim date time
 		/// </summary>
 		[Required()]
-		public DateTime ClaimDateUtc 
+		public DateTime ClaimDate 
 		{
 			get; set;
 		}

@@ -15,7 +15,7 @@ public class CompaniesController : ControllerBase
 	private readonly ILogger<CompaniesController> _logger;
 
     /// <summary>
-    /// 
+    /// Class constructor
     /// </summary>
     /// <param name="companiesService"></param>
     /// <param name="logger"></param>

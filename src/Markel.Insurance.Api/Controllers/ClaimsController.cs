@@ -57,13 +57,13 @@ namespace Markel.Insurance.Api.Controllers
 		{
 			_logger.LogTrace("{MethodName} called", nameof(GetClaim));
 
-			ClaimDto claimDto = await _claimsService.GetClaim(companyId, uniqueClaimReference);
+			ClaimDto claimDto = await _claimsService.GetClaim(companyId, uniqueClaimReference.Trim().ToUpper());
 
 			var getClaimJson = new GetClaimJson()
 			{
 				CompanyId = claimDto.CompanyId,
 				AssuredName = claimDto.AssuredName,
-				ClaimDateUtc = claimDto.ClaimDate,
+				ClaimDate = claimDto.ClaimDate,
 				ClaimType = claimDto.ClaimType,
 				Closed = claimDto.Closed,
 				IncurredLoss = claimDto.IncurredLoss,
@@ -94,12 +94,12 @@ namespace Markel.Insurance.Api.Controllers
 			{
 				CompanyId = companyId,
 				AssuredName = claim.AssuredName,
-				ClaimDate = claim.ClaimDateUtc,
+				ClaimDate = claim.ClaimDate,
 				ClaimType = claim.ClaimType,
 				Closed = claim.Closed,
 				IncurredLoss = claim.IncurredLoss,
 				LossDate = claim.LossDate,
-				UniqueClaimReference = uniqueClaimReference
+				UniqueClaimReference = uniqueClaimReference.Trim().ToUpper()
 			};
 
 			await _claimsService.Update(claimDto);
@@ -107,6 +107,5 @@ namespace Markel.Insurance.Api.Controllers
 			return Ok()!;
 
 		}
-
 	}
 }

@@ -95,7 +95,7 @@ public class Company
 	}
 
 	/// <summary>
-	/// The 
+	/// The insurance end date
 	/// </summary>
 	public DateTime InsuranceEndDate 
 	{
@@ -103,7 +103,7 @@ public class Company
 	}
 
 	/// <summary>
-	/// Has the company got any active claims?
+	/// Has the company got an active policy?
 	/// </summary>
 	public bool HasActivePolicy 
 	{ 

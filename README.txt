@@ -1,6 +1,6 @@
 Requires .NET 7.0.
 
-Postman collection available for import in Postman folder.
+Postman collection available in Postman folder.
 
 Runs on ports
 =============

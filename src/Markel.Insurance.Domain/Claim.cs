@@ -29,7 +29,7 @@
 		}
 
 		/// <summary>
-		/// The unique Claim reference
+		/// The unique claim reference
 		/// </summary>
 		public string UniqueClaimReference 
 		{
@@ -37,7 +37,7 @@
 		}
 
 		/// <summary>
-		/// Uniquely identifiers the claim's company
+		/// Uniquely identifies the claim's company
 		/// </summary>
 		public int CompanyId 
 		{ 
@@ -45,7 +45,7 @@
 		}
 
 		/// <summary>
-		/// The claim date time
+		/// The claim date 
 		/// </summary>
 		public DateTime ClaimDate 
 		{
@@ -53,7 +53,7 @@
 		}
 
 		/// <summary>
-		/// The claim lost date
+		/// The loss date
 		/// </summary>
 		public DateTime LossDate 
 		{
@@ -69,7 +69,7 @@
 		}
 
 		/// <summary>
-		/// The loss incurred by the claimant
+		/// The loss incurred
 		/// </summary>
 		public decimal IncurredLoss 
 		{

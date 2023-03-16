@@ -78,7 +78,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"uniqueClaimsReference\": \"UCR000001\",\r\n    \"companyId\": 1,\r\n    \"claimDateUtc\": \"2023-02-23T13:00:00Z\",\r\n    \"lossDate\": \"2023-02-23T00:00:00\",\r\n    \"assuredName\": \"George Costanza\",\r\n    \"incurredLoss\": 1500.00,\r\n    \"closed\": false,\r\n    \"claimType\": \"\"\r\n}",
+					"raw": "{\r\n    \"claimDate\": \"2024-02-23T13:00:00Z\",\r\n    \"lossDate\": \"2023-02-23T00:00:00\",\r\n    \"assuredName\": \"Comos Kramer\",\r\n    \"incurredLoss\": 1700.99,\r\n    \"closed\": true,\r\n    \"claimType\": \"Theft\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

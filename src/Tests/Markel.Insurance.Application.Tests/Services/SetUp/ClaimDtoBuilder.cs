@@ -2,7 +2,6 @@
 {
 	internal class ClaimDtoBuilder
 	{
-
 		internal static ClaimDto Build()
 		{
 			return new ClaimDto()
@@ -18,7 +17,5 @@
 			};
 		
 		}
-
-
 	}
 }

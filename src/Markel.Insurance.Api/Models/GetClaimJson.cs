@@ -1,7 +1,7 @@
 ﻿namespace Markel.Insurance.Api
 {
 	/// <summary>
-	/// Class used for serialising and de-serialising Claim Json
+	/// Claim Json used in GetClaim response
 	/// </summary>
 	public class GetClaimJson
 	{
@@ -24,13 +24,13 @@
 		/// <summary>
 		/// The claim date time
 		/// </summary>
-		public DateTime ClaimDateUtc
+		public DateTime ClaimDate
 		{
 			get; set;
 		}
 
 		/// <summary>
-		/// The claim lost date
+		/// The claim loss date
 		/// </summary>
 		public DateTime LossDate 
 		{

@@ -1,7 +1,7 @@
 ﻿namespace Markel.Insurance.Api
 {
 	/// <summary>
-	/// Class used for serialising and de-serialising Company Json
+	/// Company Json class
 	/// </summary>
 	public class CompanyJson
 	{

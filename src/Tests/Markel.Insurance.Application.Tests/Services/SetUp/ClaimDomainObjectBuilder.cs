@@ -1,10 +1,4 @@
 ﻿using Markel.Insurance.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Markel.Insurance.Application
 {
@@ -39,7 +33,5 @@ namespace Markel.Insurance.Application
 						claimType: new ClaimType(id: 1, name: "Theft"));
 
 		}
-
-
 	}
 }
