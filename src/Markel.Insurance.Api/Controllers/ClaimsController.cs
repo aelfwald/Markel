@@ -93,9 +93,9 @@ namespace Markel.Insurance.Api.Controllers
 			var claimDto = new ClaimDto()
 			{
 				CompanyId = companyId,
-				AssuredName = claim.AssuredName,
+				AssuredName = claim.AssuredName!.Trim(),
 				ClaimDate = claim.ClaimDate,
-				ClaimType = claim.ClaimType,
+				ClaimType = claim.ClaimType!.Trim(),
 				Closed = claim.Closed,
 				IncurredLoss = claim.IncurredLoss,
 				LossDate = claim.LossDate,
