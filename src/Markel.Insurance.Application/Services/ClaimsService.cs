@@ -106,7 +106,7 @@ namespace Markel.Insurance.Application
 			claim.Closed = claimDto.Closed;
 			claim.IncurredLoss = claimDto.IncurredLoss;
 			claim.LossDate = claimDto.LossDate;
-			claim.ClaimType = claimTypes.First(c => c.Name.ToLower() == claimDto.ClaimType!.ToLower());
+			claim.ClaimType = claimTypes.First(c => string.Equals(c.Name, claimDto.ClaimType!, StringComparison.OrdinalIgnoreCase));
 
 			await _updateClaimCommand.Run(claim);
 
@@ -116,7 +116,7 @@ namespace Markel.Insurance.Application
 		{
 			validationMessage = "";
 			bool isValid = true;
-			if (!claimTypes.Any(c => c.Name.ToLower() == claimDto.ClaimType!.ToLower()))
+			if (!claimTypes.Any(c => string.Equals(c.Name, claimDto.ClaimType, StringComparison.OrdinalIgnoreCase)))
 			{
 				validationMessage = "Invalid claim type. Supported values are 'Theft', 'Fire' and 'Death'.";
 				isValid = false;
